@@ -1,0 +1,116 @@
+<configuration scan="true" debug="false">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="coreServerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/coreServer.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/coreServer.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>50</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>100MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35}:%line %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="reqAnalyzeWithUser" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/reqAnalyze.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/reqAnalyze.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>50</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>100MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%X{PREFIX}|%date|%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="reqAnalyzeWithoutUser" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/reqAnalyzeNoUser.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>logs/reqAnalyzeNoUser.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>50</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>100MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="cas" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/cas.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/cas-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <MaxHistory>15</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35}:%line [TraceID:%X{TraceID}]
+                %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
+
+    <logger name="cn.v5.metric.ReqAnalyzeInterceptor_USER" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="reqAnalyzeWithUser"/>
+        <appender-ref ref="syslog"/>
+    </logger>
+
+    <logger name="cn.v5.metric.ReqAnalyzeInterceptor_NOUSER" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="reqAnalyzeWithoutUser"/>
+    </logger>
+
+    <logger name="org.springframework.web" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="coreServerAppender"/>
+    </logger>
+
+    <logger name="ACHILLES_DDL_SCRIPT" additivity="false">
+        <level value="error"/>
+        <appender-ref ref="coreServerAppender"/>
+    </logger>
+
+    <logger name="cn.v5" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="coreServerAppender"/>
+    </logger>
+    <logger name="com.datastax" level="info" additivity="false">\
+        <level value="error"/>
+        <appender-ref ref="coreServerAppender"/>
+    </logger>
+
+
+    <root>
+        <level value="WARN"/>
+        <appender-ref ref="coreServerAppender"/>
+    </root>
+
+</configuration>

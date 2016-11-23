@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <bean id="tradeExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="6"/>
+        <property name="maxPoolSize" value="11"/>
+        <property name="queueCapacity" value="20000"/>
+    </bean>
+
+    <bean id="tradeExecutorService" class="cn.v5.rpc.support.ExecutorServiceAdapter">
+        <constructor-arg ref="taskExecutor"/>
+    </bean>
+
+    <bean id="tradeConnectionManager" class="cn.v5.rpc.cluster.MRClusterConnectionManagerSpring">
+        <property name="group" value="${zk.group.trade}"/>
+        <property name="discoverURL" value="${zk.address}"/>
+        <property name="executor" ref="tradeExecutor"/>
+        <property name="clusterType" value="rpcServer"/>
+        <property name="timeout" value="1200"/>
+    </bean>
+
+    <bean id="tradeItemService" class="cn.v5.trade.rpc.TradeItemServiceImpl"/>
+
+    <bean id="tradeRpcServiceManager" class="cn.v5.rpc.RpcServiceManager"/>
+
+    <bean id="tradeMessagePack" class="org.msgpack.MessagePack"/>
+
+    <bean name="exportTradeItemService" class="cn.v5.rpc.MRMessagePackInvokerServiceExporter">
+        <property name="serviceUrl" value="rpc/trade"/>
+        <property name="service" ref="tradeItemService"/>
+        <property name="serviceInterface" value="com.handwin.api.trade.service.TradeItemService"/>
+        <property name="messagePack" ref="tradeMessagePack"/>
+        <property name="connectionManager" ref="tradeConnectionManager"/>
+        <property name="rpcServiceManager" ref="tradeRpcServiceManager"/>
+        <property name="perfetchSize" value="512"/>
+        <property name="registry" ref="metrics"/>
+    </bean>
+
+
+</beans>

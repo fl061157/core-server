@@ -1,0 +1,29 @@
+1 中英文协议对应
+   1.1 nginx配置反向代理
+     /static/chatgame_privacy/cn 到/static/cn/chatgame_privacy.html
+     /static/chatgame_privacy/us 到/static/us/chatgame_privacy.html
+
+     兼容客户度老的版本:需要配置如下的反向代理
+     /static/chatgame_privacy.html 中国区的nginx反向代理到/static/cn/chatgame_privacy.html,美国区的nginx反向代理到/static/us/chatgame_privacy.html
+
+    location /static/chatgame_privacy/cn {
+        proxy_pass  http://httpserver/static/cn/chatgame_privacy.html;
+    }
+    location /static/chatgame_privacy/us {
+        proxy_pass    http://httpserver/static/us/chatgame_privacy.html;
+    }
+
+    location /static/chatgame_privacy.html {
+        proxy_pass    http://httpserver/static/us/chatgame_privacy.html;
+    }
+    location ^~ /static/chatgame_privacy {
+        rewrite . /static/us/chatgame_privacy.html;
+        proxy_pass    http://httpserver;
+    }
+    location ^~ /static/ {
+        proxy_pass    http://httpserver;
+    }
+
+
+   1.2 中国区的nginx配置到
+   /static/cn/chatgame_privacy.html

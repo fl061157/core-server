@@ -1,0 +1,13 @@
+.DS_Store
+target/
+/.idea
+/cn.v5.iml
+/core-server.iml
+/.project
+/.classpath
+.idea/
+.settings
+./settings
+/bin/
+logs/*
+logs

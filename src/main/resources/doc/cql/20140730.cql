@@ -1,0 +1,1 @@
+alter table user_tcp_login add channel_mode int;

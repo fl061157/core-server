@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="manager" class="cn.v5.cassandra.EmbeddedCassandraFactoryBean"/>
+    <alias name="manager" alias="localManager"/>
+
+    <!--<bean id="binaryJedisCluster" class="cn.v5.cache.BinaryJedisCluster">-->
+        <!--<constructor-arg index="0" type="java.lang.String">-->
+            <!--<value>${redis.hosts}</value>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="1">-->
+            <!--<value>1</value>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="2">-->
+            <!--<value>5</value>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="3" type="redis.clients.jedis.JedisPoolConfig">-->
+            <!--<ref bean="jedisPoolConfig"></ref>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="amqpTemplate" class="cn.v5.mock.RabbitmqTemplateMock"/>-->
+
+
+    <bean id="propertyConfigurerForProject2"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="2"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:property-test.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>

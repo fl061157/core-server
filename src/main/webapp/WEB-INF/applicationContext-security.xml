@@ -1,0 +1,98 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						http://www.springframework.org/schema/security/oauth2
+						http://www.springframework.org/schema/security/spring-security-oauth2-1.0.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <http pattern="/oauth/token" use-expressions="true" create-session="stateless"
+          authentication-manager-ref="oauth2AuthenticationManager">
+        <intercept-url pattern="/oauth/token" access="isFullyAuthenticated()"/>
+        <anonymous enabled="false"/>
+        <http-basic entry-point-ref="oauth2AuthenticationEntryPoint"/>
+        <custom-filter ref="clientCredentialsTokenEndpointFilter"
+                       before="BASIC_AUTH_FILTER"/>
+        <access-denied-handler ref="oauth2AccessDeniedHandler"/>
+    </http>
+
+    <http pattern="/open/api/**" create-session="never"
+          entry-point-ref="oauth2AuthenticationEntryPoint"
+          access-decision-manager-ref="oauth2AccessDecisionManager">
+        <anonymous enabled="false"/>
+        <intercept-url pattern="/json/**" access="ROLE_USER,ROLE_CLIENT,SCOPE_READ"/>
+        <custom-filter ref="openResourceServer" before="PRE_AUTH_FILTER"/>
+        <access-denied-handler ref="oauth2AccessDeniedHandler"/>
+    </http>
+    <beans:bean id="tokenStore"
+                class="cn.v5.bean.oauth2.TokenCasStore">
+        <beans:property name="manager" ref="oauthManager"/>
+    </beans:bean>
+    <beans:bean id="tokenServices"
+                class="cn.v5.bean.oauth2.SimpleTokenServices">
+        <beans:property name="tokenStore" ref="tokenStore"/>
+        <beans:property name="supportRefreshToken" value="false"/>
+        <beans:property name="accessTokenValiditySeconds" value="${expire.seconds}"/>
+    </beans:bean>
+
+    <beans:bean id="clientDetailsService"
+                class="org.springframework.security.oauth2.provider.client.JdbcClientDetailsService">
+        <beans:constructor-arg ref="dataSource"/>
+    </beans:bean>
+
+
+    <beans:bean id="oauth2ClientDetailsUserService"
+                class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
+        <beans:constructor-arg ref="clientDetailsService"/>
+    </beans:bean>
+    <authentication-manager alias="oauth2AuthenticationManager">
+        <authentication-provider user-service-ref="oauth2ClientDetailsUserService"/>
+    </authentication-manager>
+
+    <oauth2:authorization-server
+            client-details-service-ref="clientDetailsService" token-services-ref="tokenServices"
+            user-approval-handler-ref="oauthUserApprovalHandler">
+        <oauth2:authorization-code/>
+        <oauth2:implicit/>
+        <oauth2:refresh-token/>
+        <oauth2:client-credentials/>
+        <oauth2:password/>
+    </oauth2:authorization-server>
+
+    <beans:bean id="oauth2AuthenticationEntryPoint"
+                class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint"/>
+
+    <beans:bean id="oauth2AccessDeniedHandler"
+                class="org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler"/>
+    <beans:bean id="oauthUserApprovalHandler"
+                class="org.springframework.security.oauth2.provider.approval.DefaultUserApprovalHandler"/>
+
+    <beans:bean id="oauth2AccessDecisionManager"
+                class="org.springframework.security.access.vote.AffirmativeBased">
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:bean
+                        class="org.springframework.security.oauth2.provider.vote.ScopeVoter"/>
+                <beans:bean class="org.springframework.security.access.vote.RoleVoter"/>
+                <beans:bean
+                        class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
+    <oauth2:resource-server id="openResourceServer"
+                            resource-id="open-resource" token-services-ref="tokenServices"/>
+    <beans:bean id="clientCredentialsTokenEndpointFilter"
+                class="org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter">
+        <beans:property name="authenticationManager" ref="oauth2AuthenticationManager"/>
+    </beans:bean>
+
+    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <beans:property name="driverClassName" value="com.github.adejanovski.cassandra.jdbc.CassandraDriver"/>
+        <beans:property name="url" value="${cas.url}"/>
+    </beans:bean>
+
+</beans:beans>

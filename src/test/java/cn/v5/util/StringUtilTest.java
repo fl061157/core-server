@@ -1,0 +1,35 @@
+package cn.v5.util;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+public class StringUtilTest {
+
+    @Test
+    public void testIsDigital() throws Exception {
+        String value = "1379999990";
+        assertTrue(StringUtil.isDigital(value));
+
+        value = "iphone";
+        assertFalse(StringUtil.isDigital(value));
+
+        value = "";
+        assertFalse(StringUtil.isDigital(value));
+    }
+
+    @Test
+    public void testHideMsg() {
+        String toString = "{\"messages\":[{\"id\":6028894875679084544,\"type\":\"SYSTEM_NOTIFY\",\"conversation_id\":\"88888888888888888888888888888888\",\"create_time\":1437400549814,\"sender\":\"88888888888888888888888888888888\",\"receiver_type\":1,\"receiver\":\"e68f3380d2cd11e39bc3abf93b119073\",\"secret\":0,\"room_id\":null,\"content\":\"eyJ0eXBlIjoibmV3X3Blb3BsZV95b3VfbWF5X2tub3duIiwiaW5mbyI6bnVsbH0=\"},{\"id\":6028894969690210304,\"type\":\"SYSTEM_NOTIFY\",\"conversation_id\":\"f4c120d0f65811e49ee83d3160ae1ee8\",\"create_time\":1437400572228,\"sender\":\"f4c120d0f65811e49ee83d3160ae1ee8\",\"receiver_type\":1,\"receiver\":\"e68f3380d2cd11e39bc3abf93b119073\",\"secret\":0,\"room_id\":null,\"content\":\"eyJ0eXBlIjoidXNlcl91cGRhdGUiLCJpbmZvIjp7InVzZXIiOnsiaWQiOiJmNGMxMjBkMGY2NTgxMWU0OWVlODNkMzE2MGFlMWVlOCIsIm5pY2tuYW1lIjoi5rWL6K+V576O5Zu9MuWPtyIsInNleCI6MCwiYXZhdGFyX3VybCI6Imh0dHA6Ly91cy5pbWFnZS5jaGF0Z2FtZS5tZS9hcGkvZmlsZS9hdmF0YXIvMjAxNS83LzIwLzEzLzY1MmQ4NWEyLTM2MjUtNDkzNS05YWVkLWZiYWUwZTNkZTMwNiIsImFjY291bnQiOiIxMDA0ODUiLCJtb2JpbGUiOiIxMzAwMDAwMDAyIiwiY291bnRyeWNvZGUiOiIwMDAxIiwiY3JlYXRlX3RpbWUiOm51bGwsInRpbWV6b25lIjoiKzg6MDAiLCJsYW5ndWFnZSI6InpoX0NOIiwidXNlcl90eXBlIjowLCJtb2JpbGVfdmVyaWZ5IjoxLCJwdWJsaWNfa2V5IjoiLS0tLS1CRUdJTiBSU0EgUFVCTElDIEtFWS0tLS0tXG5NSUdIQW9HQkFPaldMLzBTK3RKUzdpTVFiSVlEb09teHY1WkwwM2lHWjVsZTVwSlU3b1RyVG83RVVleStnZnQrXG5GS2JwUmxLRmp1RjlTOUcydFZhcm42cTQ4d3B6SnV0MHRjbkRmVEJHa0k4Qy9aaXZOSXBSbDF1eXFrUXJlKzJZXG56Q3g1ZlhSdGEvcGJpd0ozWEw4MWJOZmN1NERua1pKSm5oTitlM1BnQWJYWEhJTzhranJ4QWdFQlxuLS0tLS1FTkQgUlNBIFBVQkxJQyBLRVktLS0tLVxuIiwiY29udmVyc2F0aW9uIjpudWxsLCJjb250YWN0X25hbWUiOm51bGwsInNvdXJjZSI6bnVsbH0sImdyb3VwIjpudWxsLCJkZXNjIjpudWxsLCJncm91cF9pZCI6bnVsbCwidXNlcl9pZCI6bnVsbCwibXNnX3R5cGUiOm51bGwsImZyb20iOm51bGwsImJhc2VfdXNlcl92byI6bnVsbH19\"},{\"id\":6029060025925124097,\"type\":\"SYSTEM_NOTIFY\",\"conversation_id\":\"60fdb3e0f5d711e3b7b64978faf390ea\",\"create_time\":1437439924774,\"sender\":\"60fdb3e0f5d711e3b7b64978faf390ea\",\"receiver_type\":1,\"receiver\":\"e68f3380d2cd11e39bc3abf93b119073\",\"secret\":0,\"room_id\":null,\"content\":\"eyJ0eXBlIjoidXNlcl91cGRhdGUiLCJpbmZvIjp7InVzZXIiOnsiaWQiOiI2MGZkYjNlMGY1ZDcxMWUzYjdiNjQ5NzhmYWYzOTBlYSIsIm5pY2tuYW1lIjoiQWxleCIsInNleCI6MCwiYXZhdGFyX3VybCI6Imh0dHA6Ly9jbi5maWxlLmNoYXRnYW1lLm1lL2FwaS9maWxlL2Rvd25sb2FkLzIwMTUvNy8yMS8wLzVhYWQ0M2YxLTgwNmMtNGM4MC1hZDE4LWE0ZjFhNDEwYzllOCIsImFjY291bnQiOiI4NjEwOTM1IiwibW9iaWxlIjoiMTgwNjYxMTEyMTMiLCJjb3VudHJ5Y29kZSI6IjAwODYiLCJjcmVhdGVfdGltZSI6bnVsbCwidGltZXpvbmUiOiIrODowMCIsImxhbmd1YWdlIjoiemhfQ04iLCJ1c2VyX3R5cGUiOjAsIm1vYmlsZV92ZXJpZnkiOjAsInB1YmxpY19rZXkiOiItLS0tLUJFR0lOIFJTQSBQVUJMSUMgS0VZLS0tLS1cbk1JR0hBb0dCQU5YMnM2eE1jRm4vQXk4YTVubGFvNjRpZktWb3p4cjFiSGJ0Tkc1UHFIUXM2U0lHajdKSkYxdTVcbk9qS0VMbmdNL1FxRFp0Y3FzSkhtTFhFeEpCTGJiK0ZYNVhGb1BVTFpRYjNuVUVobEdIWkRPQkt5TlVyaXlUd0JcbkxxdXM5S0g3TUlYTUlvSlhaaFJnNDd3QmdPOTNxTTRUN2RabmFCdis2ZFRvTWJnT2U0TlZBZ0VCXG4tLS0tLUVORCBSU0EgUFVCTElDIEtFWS0tLS0tXG4iLCJjb252ZXJzYXRpb24iOm51bGwsImNvbnRhY3RfbmFtZSI6bnVsbCwic291cmNlIjpudWxsfSwiZ3JvdXAiOm51bGwsImRlc2MiOm51bGwsImdyb3VwX2lkIjpudWxsLCJ1c2VyX2lkIjpudWxsLCJtc2dfdHlwZSI6bnVsbCwiZnJvbSI6bnVsbCwiYmFzZV91c2VyX3ZvIjpudWxsfX0=\"}]}";
+
+        System.out.println(toString);
+        System.out.println(StringUtil.hideMsgContent(toString));
+
+        toString = "{\"messages\":[{\"id\":6028894875679084544,\"type\":\"SYSTEM_NOTIFY\",\"conversation_id\":\"88888888888888888888888888888888\",\"create_time\":1437400549814,\"sender\":\"88888888888888888888888888888888\",\"receiver_type\":1,\"receiver\":\"e68f3380d2cd11e39bc3abf93b119073\",\"secret\":0,\"room_id\":null,\"content\":null},{\"id\":6028894969690210304,\"type\":\"SYSTEM_NOTIFY\",\"conversation_id\":\"f4c120d0f65811e49ee83d3160ae1ee8\",\"create_time\":1437400572228,\"sender\":\"f4c120d0f65811e49ee83d3160ae1ee8\",\"receiver_type\":1,\"receiver\":\"e68f3380d2cd11e39bc3abf93b119073\",\"secret\":0,\"room_id\":null,\"content\":\"eyJ0eXBlIjoidXNlcl91cGRhdGUiLCJpbmZvIjp7InVzZXIiOnsiaWQiOiJmNGMxMjBkMGY2NTgxMWU0OWVlODNkMzE2MGFlMWVlOCIsIm5pY2tuYW1lIjoi5rWL6K+V576O5Zu9MuWPtyIsInNleCI6MCwiYXZhdGFyX3VybCI6Imh0dHA6Ly91cy5pbWFnZS5jaGF0Z2FtZS5tZS9hcGkvZmlsZS9hdmF0YXIvMjAxNS83LzIwLzEzLzY1MmQ4NWEyLTM2MjUtNDkzNS05YWVkLWZiYWUwZTNkZTMwNiIsImFjY291bnQiOiIxMDA0ODUiLCJtb2JpbGUiOiIxMzAwMDAwMDAyIiwiY291bnRyeWNvZGUiOiIwMDAxIiwiY3JlYXRlX3RpbWUiOm51bGwsInRpbWV6b25lIjoiKzg6MDAiLCJsYW5ndWFnZSI6InpoX0NOIiwidXNlcl90eXBlIjowLCJtb2JpbGVfdmVyaWZ5IjoxLCJwdWJsaWNfa2V5IjoiLS0tLS1CRUdJTiBSU0EgUFVCTElDIEtFWS0tLS0tXG5NSUdIQW9HQkFPaldMLzBTK3RKUzdpTVFiSVlEb09teHY1WkwwM2lHWjVsZTVwSlU3b1RyVG83RVVleStnZnQrXG5GS2JwUmxLRmp1RjlTOUcydFZhcm42cTQ4d3B6SnV0MHRjbkRmVEJHa0k4Qy9aaXZOSXBSbDF1eXFrUXJlKzJZXG56Q3g1ZlhSdGEvcGJpd0ozWEw4MWJOZmN1NERua1pKSm5oTitlM1BnQWJYWEhJTzhranJ4QWdFQlxuLS0tLS1FTkQgUlNBIFBVQkxJQyBLRVktLS0tLVxuIiwiY29udmVyc2F0aW9uIjpudWxsLCJjb250YWN0X25hbWUiOm51bGwsInNvdXJjZSI6bnVsbH0sImdyb3VwIjpudWxsLCJkZXNjIjpudWxsLCJncm91cF9pZCI6bnVsbCwidXNlcl9pZCI6bnVsbCwibXNnX3R5cGUiOm51bGwsImZyb20iOm51bGwsImJhc2VfdXNlcl92byI6bnVsbH19\"},{\"id\":6029060025925124097,\"type\":\"SYSTEM_NOTIFY\",\"conversation_id\":\"60fdb3e0f5d711e3b7b64978faf390ea\",\"create_time\":1437439924774,\"sender\":\"60fdb3e0f5d711e3b7b64978faf390ea\",\"receiver_type\":1,\"receiver\":\"e68f3380d2cd11e39bc3abf93b119073\",\"secret\":0,\"room_id\":null,\"content\":\"eyJ0eXBlIjoidXNlcl91cGRhdGUiLCJpbmZvIjp7InVzZXIiOnsiaWQiOiI2MGZkYjNlMGY1ZDcxMWUzYjdiNjQ5NzhmYWYzOTBlYSIsIm5pY2tuYW1lIjoiQWxleCIsInNleCI6MCwiYXZhdGFyX3VybCI6Imh0dHA6Ly9jbi5maWxlLmNoYXRnYW1lLm1lL2FwaS9maWxlL2Rvd25sb2FkLzIwMTUvNy8yMS8wLzVhYWQ0M2YxLTgwNmMtNGM4MC1hZDE4LWE0ZjFhNDEwYzllOCIsImFjY291bnQiOiI4NjEwOTM1IiwibW9iaWxlIjoiMTgwNjYxMTEyMTMiLCJjb3VudHJ5Y29kZSI6IjAwODYiLCJjcmVhdGVfdGltZSI6bnVsbCwidGltZXpvbmUiOiIrODowMCIsImxhbmd1YWdlIjoiemhfQ04iLCJ1c2VyX3R5cGUiOjAsIm1vYmlsZV92ZXJpZnkiOjAsInB1YmxpY19rZXkiOiItLS0tLUJFR0lOIFJTQSBQVUJMSUMgS0VZLS0tLS1cbk1JR0hBb0dCQU5YMnM2eE1jRm4vQXk4YTVubGFvNjRpZktWb3p4cjFiSGJ0Tkc1UHFIUXM2U0lHajdKSkYxdTVcbk9qS0VMbmdNL1FxRFp0Y3FzSkhtTFhFeEpCTGJiK0ZYNVhGb1BVTFpRYjNuVUVobEdIWkRPQkt5TlVyaXlUd0JcbkxxdXM5S0g3TUlYTUlvSlhaaFJnNDd3QmdPOTNxTTRUN2RabmFCdis2ZFRvTWJnT2U0TlZBZ0VCXG4tLS0tLUVORCBSU0EgUFVCTElDIEtFWS0tLS0tXG4iLCJjb252ZXJzYXRpb24iOm51bGwsImNvbnRhY3RfbmFtZSI6bnVsbCwic291cmNlIjpudWxsfSwiZ3JvdXAiOm51bGwsImRlc2MiOm51bGwsImdyb3VwX2lkIjpudWxsLCJ1c2VyX2lkIjpudWxsLCJtc2dfdHlwZSI6bnVsbCwiZnJvbSI6bnVsbCwiYmFzZV91c2VyX3ZvIjpudWxsfX0=\"}]}";
+        System.out.println(toString);
+        System.out.println(StringUtil.hideMsgContent(toString));
+
+
+    }
+}

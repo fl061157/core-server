@@ -1,0 +1,106 @@
+/*
+* @description: 通用样式
+* @author: czx
+* @update: czx (2014-04-30 11:50)
+*/
+@CHARSET "UTF-8";
+blockquote, q {
+	quotes: none;
+}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video,select,input,textarea,button {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+	display: block;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+fieldset,img {
+	border: 0;
+}
+address,caption,cite,code,dfn,em,var{
+	font-style:normal;
+	font-weight:normal;
+}
+ul,li {
+	list-style:none;
+}
+caption,th {
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size: 100%;
+	font-weight: normal; 
+}
+q:before,q:after {
+	content:'*';
+}
+abbr,acronym {
+	border: 0;
+	font-variant: normal;
+}
+sup {
+	vertical-align: text-top;
+}
+sub {
+	vertical-align: text-bottom;
+}
+input,select {
+	font-family: Tahoma;
+	vertical-align: middle;
+	font-size: 12px;
+}
+body { 
+	font-size: 12px;
+	font-family: "微软雅黑"; 
+	color: #505050;
+	word-wrap: break-word; 
+	word-break: normal;
+}
+pre {
+	white-space: pre-wrap; 
+	white-space: -moz-pre-wrap;
+	white-space: -o-pre-wrap;
+}
+*html pre {
+	word-wrap: break-word;
+	white-space : normal;
+}
+.clear{ 
+	clear: both;
+	font-size: 0; 
+	height: 0; 
+	overflow: hidden;
+}
+.clearfix { 
+	zoom: 1
+}
+.clearfix:after { 
+	content: '*'; 
+	height: 0; 
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+.hide{ 
+	display: none;
+}
+a { 
+	color: #505050; 
+	text-decoration: none;
+}
+a:link { 
+	text-decoration: none;
+}
+a:hover { 
+	text-decoration: none;
+}
+a:focus {
+	outline: 0;
+}

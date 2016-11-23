@@ -1,0 +1,41 @@
+1. 注册流程
+   接口
+   参数：坐标lat、lon
+   GET /api/user/neighbour
+客户端上传坐标，更新坐标，并找出最近的20人，返回
+同时向半径内所有用户广播系统消息
+
+2 心跳流程
+客户端上传坐标，更新坐标，不返回最近的人
+   参数：坐标lat、lon
+   POST /api/user/neighbour/keepalive
+
+3登出流程
+  参数：无
+  删除用户记录
+  POST /api/user/neighbour_logout
+
+
+返回的列表作距离排序
+
+4. elastic search 初始化脚本
+curl -XPUT 'http://localhost:9200/chatgame_geo/'
+curl -XPUT 'http://localhost:9200/chatgame_geo/_mapping/pin' -d '{
+    "pin": {
+        "_ttl": {
+            "enabled": true,
+            "default": "1m"
+        },
+        "properties": {
+            "location": {
+                "type": "geo_point"
+            },
+            "user_id": {
+                "type": "string"
+            }
+        }
+    }
+}'
+
+
+//TODO 配置文件  例子在config.properties

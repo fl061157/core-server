@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="fileStore" class="cn.v5.file.local.LocalFileStoreImpl"/>
+    <bean id="manager" class="cn.v5.cassandra.EmbeddedCassandraFactoryBean"/>
+    <alias name="manager" alias="localManager"/>
+    <alias name="manager" alias="opManager"/>
+    <alias name="manager" alias="oauthManager"/>
+</beans>

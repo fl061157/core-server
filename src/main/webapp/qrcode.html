@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <noscript><meta http-equiv="refresh" content="0; url=/"></noscript>
+    <script>
+        (function(){
+            function redirect(){
+                location.href = href;
+            }
+            var url_parts = document.URL.split('?');
+            var query = url_parts.length == 2 ? ('?' + url_parts[1]) : '';
+            var href = '/';
+            var ua = navigator.userAgent.toLowerCase();
+            if (/iphone|ipad|ipod/.test(ua)) {
+                href = 'http://www.chatgame.me/m/index.html';
+                setTimeout(redirect, 2000);
+            } else if (/android/.test(ua)) {
+                href = 'http://www.chatgame.me/m/index.html';
+                setTimeout(redirect, 2000);
+            } else if (/windows phone|blackberry/.test(ua)) {
+                alert('抱歉，暂不支持您的系统');
+                window.location.href = 'http://www.chatgame.me/m/index.html';
+            } else {
+                window.location.href = 'http://www.chatgame.me/m/index.html';
+            }
+        })()
+    </script>
+</head>
+<p id="text"></p>
+</html>

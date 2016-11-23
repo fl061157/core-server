@@ -1,0 +1,8 @@
+1 发送短信
+curl -X POST -H "client-session:a87ff679a2f3e71d9181a67b7542122c" -H "region-code:0086" -d "mobile=13770508309&countrycode=0086&msg=testcoreserver&type=0" "http://test.v5.cn/api/sms/send"
+
+curl -X POST -H "client-session:a87ff679a2f3e71d9181a67b7542122c" -H "region-code:0086" -d "mobile=13770508309&countrycode=0086&msg=%e6%b5%8b%e8%af%95&type=0" "http://test.v5.cn/api/sms/send"
+
+
+
+curl -X POST -H "client-session:a87ff679a2f3e71d9181a67b7542122c" -H "region-code:0086" -d "mobile=13770508309&countrycode=0086&type=gt_call" "http://test.v5.cn/api/sms/send"

@@ -1,0 +1,1 @@
+alter table fileinfo add pub boolean;

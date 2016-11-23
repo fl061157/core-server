@@ -1,0 +1,161 @@
+/*
+* @description: chatgame PC端首页
+* @author: czx
+* @update: czx (2014-05-05 18:00)
+*/
+
+@CHARSET "UTF-8";
+#wrapper {
+	z-index: 1;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 967px;
+	background: url(../images/wrapper-bg.png) repeat-x #49BDCC;
+}
+#left-mountain { 
+	z-index: -4;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 494px;
+	height: 136px;
+	background: url(../images/left.png) no-repeat;
+}
+#right-mountain { 
+	z-index: -3;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 1046px; 
+ 	height:286px;
+ 	background: url(../images/right.png) no-repeat;
+}
+#light {
+	z-index: -2;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 967px;
+}
+#light-img {
+	width: 100%;
+	height: 967px;
+}
+/* main */
+#main-content {
+	position: relative;
+	width: 1000px;
+	height: 967px;
+	margin: 0 auto;
+}
+#header {
+	z-index: 7;
+}
+#header .header-content {
+	position: relative;
+	padding: 288px 0 0 281px;
+}
+#beta {
+	position: absolute;
+	top:267px;
+	left:347px;
+}
+#header .logo {
+	float: left;
+}
+#header h1 {
+	float: left;
+	margin-left: 10px;
+	color: #FFFFFF;
+	line-height: 60px;
+	font-weight: bold;
+	font-family: Arial;
+	font-size: 50px;
+}
+#header .twitter-icon {
+	display: block;
+	float: left;
+	width: 37px;
+	height: 37px;
+	margin: 12px 0 0 23px;
+	background: url(../images/bg.png) 0 -157px no-repeat;
+	cursor: pointer;
+}
+#header .facebook-icon {
+	display: block;
+	float: left;
+	width: 37px;
+	height: 37px;
+	margin: 12px 0 0 8px;
+	background: url(../images/bg.png) -47px -157px no-repeat;
+	cursor: pointer;
+}
+#introduce {
+	margin-top: 70px;
+}
+#introduce p {
+	color: #FFFFFF;
+	font-family: Arial;
+	font-size: 40px;
+	text-align: center;	
+}
+#download {
+	position: relative;
+	margin-top: 64px;
+	padding-left: 233px;
+}
+#download .ios {
+	display: block;
+	float: left;
+	width: 221px;
+	height: 68px;
+	margin-right: 10px;
+	background: url(../images/bg.png) 0 0 no-repeat;
+}
+#download .android {
+	display: block;
+	float: left;
+	width: 218px;
+	height: 68px;
+	margin-right: 10px;
+	background: url(../images/bg.png) 0 -78px no-repeat;
+}
+#download .twodc-small {
+	float: left;
+	width: 68px;
+	height: 68px;
+	
+}
+#twodc {
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: url(../images/arrow.png) 0 15px no-repeat;
+}
+#twodc img{
+	width: 200px;
+	height: 200px;
+	margin-left: 10px;
+	padding: 10px;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+}
+/* footer */
+#footer {
+	width: 100%;
+	height: 66px;
+	background: url(../images/footer-bg.png) repeat-x;
+}
+#footer p{
+	width: 1000px; 
+	height: 66px;
+	line-height: 66px;
+	margin: 0 auto;
+	color: #FFFFFF;
+	font-size: 18px;
+	text-align: center;
+}

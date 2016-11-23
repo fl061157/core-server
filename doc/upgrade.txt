@@ -1,0 +1,13 @@
+1 功能：rpcServer支持心跳响应
+  时间: 2014-08-14
+  修改说明: pom.xml的rpc版本改为2.0-SNAPSHOT
+  注意事项: 需要和frontServer同步升级（frontServer的rpc版本也需要升级到2.0-SNAPSHOT）
+
+2 增加非api请求的话单
+  和flume的入库规则协同修改
+  mysql1.sinks.ms1.dbmapper.user_core_server_req.pattern = ((^.*?\\|.*?\\|CoreServer\\|)|(^.+?\\|.+?\\|AttachServer\\|.+?\\|.+?\\|/api/game/online_op\\|))
+  修改为请求路径以 /api作为前缀
+    mysql1.sinks.ms1.dbmapper.user_core_server_req.pattern = ((^.*?\\|.*?\\|CoreServer\\|.+?\\|.+?\\|^/api.+?\\|)|(^.+?\\|.+?\\|AttachServer\\|.+?\\|.+?\\|/api/game/online_op\\|))
+
+  e.g
+  200|10.0.20.114|CoreServer|2015-08-02 16:18:50,430|1438532330430|/api/user/message/unread|6ce30670cab011e481cc3d3160ae1ee8|6491413b26384cf8b7551c533176c72a|96800748|hassan aziza|99239901|0968|CG2.0.157_iOS_8.40_Apple_iPhone6,2_iOS_ar-OM_0.0|chatgame-2.0.157|188.140.162.228, 31.186.228.60, 10.0.10.98|1426381981784|2015-03-15 01:13:01|2

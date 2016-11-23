@@ -1,0 +1,380 @@
+/*
+* @description: chatgame PC端首页
+* @author: czx
+* @update: czx (2014-06-26 21:00)
+*/
+
+@CHARSET "UTF-8";
+#wrapper {
+    position: relative;
+    width: 100%;
+    background: url(../img/bg.png) repeat-x #43C0D0;
+}
+.index-wrapper {
+    background: url(../img/mountain_bg.png) 0 300px no-repeat;
+    background-position: center;
+}
+#nav {
+    z-index: 10;
+    position: absolute;
+    top: 55px;
+    right: 0;
+}
+#nav li {
+    float: left;
+    padding-right: 80px;
+}
+#nav li a {
+    font-size: 30px;
+    color: #FFFFFF;
+}
+#nav .current a, #nav li a:hover{
+    color: #C3E341;
+}
+#main {
+    background:url(../img/stars_bg.png) 0 0 no-repeat;
+}
+#main-content {
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+}
+#header {
+
+}
+#header .header-content {
+    position: relative;
+    padding: 216px 0 0 0;
+}
+#header .logo {
+    float: left;
+}
+#header .main-title {
+    margin-left: 42px;
+}
+#header h1 {
+    width: 716px;
+    margin: 0 auto;
+}
+#introduce {
+    margin-top: 80px;
+}
+#introduce p {
+    color: #FFFFFF;
+    font-size: 40px;
+    text-align: center;
+}
+#download {
+    position: relative;
+    margin-top: 88px;
+    padding-left: 78px;
+}
+#download .ios {
+    display: block;
+    float: left;
+    width: 261px;
+    height: 68px;
+    margin-right: 30px;
+    background: url(../img/button_bg.png) 0 0 no-repeat;
+}
+#download .android {
+    display: block;
+    float: left;
+    width: 261px;
+    height: 68px;
+    margin-right: 30px;
+    background: url(../img/button_bg.png) 0 -78px no-repeat;
+}
+#download .scan-erweima {
+    float: left;
+    width: 261px;
+    height: 68px;
+
+}
+#twodc {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: url(../images/arrow.png) 0 15px no-repeat;
+}
+#twodc img{
+    width: 200px;
+    height: 200px;
+    margin-left: 10px;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+/* banner*/
+.banner {
+    width: 100%;
+    height: 670px;
+    margin: 270px 0 130px 0;
+    background: url(../img/shadow.png) center 550px no-repeat;
+}
+.bannerContent {
+    width: 1050px;
+    height: 670px;
+    margin:0 auto;
+}
+/* footer */
+#footer {
+    width: 100%;
+    height: 56px;
+    background-color: #474747;
+}
+#footer p{
+    width: 1000px;
+    height: 56px;
+    line-height: 56px;
+    margin: 0 auto;
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+
+
+/*about*/
+
+#title {
+    margin-top: 154px;
+    padding-bottom: 9px;
+    border-bottom: 4px solid #FFFFFF;
+}
+#title span {
+    padding-left: 10px;
+    color: #FFFFFF;
+    font-size: 39px;
+}
+#title a {
+    margin-left:60px;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+#title a.first {
+    margin-left: 90px;
+}
+#title .current, #title a:Hover {
+    color: #C3E341;
+}
+
+#content{
+
+}
+#content .subContent {
+    display: none;
+}
+.subContent h2 {
+    margin-top: 73px;
+    padding: 0 0 13px 10px;
+    border-bottom: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 30px;
+}
+.subContent h3 {
+    margin: 25px 0;
+    color: #C3E341;
+    font-size: 16px;
+}
+.subContent h4 {
+    margin-top: 36px;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+}
+.subContent p {
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    font-size: 14px;
+}
+.subContent .subContent-ul {
+    margin:10px 0 10px 24px ;
+}
+.subContent .subContent-ul li {
+    list-style: disc;
+    margin-bottom: 7px;
+    color: #FFFFFF;
+    font-size: 14px;
+}
+.subContent .ta-r {
+    margin-bottom: 20px;
+    text-align: right;
+}
+#navigation {
+    width: 100%;
+    height: 139px;
+    background-color: #F7F7F7;
+}
+.navigation-content {
+    width: 1000px;
+    height: 139px;
+    margin: 0 auto;
+}
+.left-content {
+    float:left;
+    width: 150px;
+    height: 139px;
+}
+.left-content .twitter-icon {
+    display: block;
+    float: left;
+    width: 44px;
+    height: 44px;
+    margin: 25px 23px 0 0;
+    background: url(../img/button_bg.png) 0 -234px no-repeat;
+    cursor: pointer;
+}
+.left-content .facebook-icon {
+    display: block;
+    float: left;
+    width: 44px;
+    height: 44px;
+    margin: 25px 0 0 0;
+    background: url(../img/button_bg.png) -54px -234px no-repeat;
+    cursor: pointer;
+}
+.right-content {
+    float:right;
+}
+.right-content dl {
+    float: left;
+    margin-left: 150px;
+    margin-top: 25px;
+}
+.right-content dt {
+    color: #000000;
+    font-size: 20px;
+}
+.right-content dd {
+    margin-top: 10px;
+    color: #727272;
+    font-size: 12px;
+}
+
+
+/* Contact us*/
+.contact-content {
+    margin: 45px 0;
+}
+.subContent .contact-us {
+    border-top: 1px solid #A9D9C8;
+}
+.subContent .contact-us li {
+    float: left;
+    width: 500px;
+    margin-top: 50px;
+}
+.contact-us .img {
+    float: left;
+    width: 79px;
+    height: 79px;
+    background: url(../img/button_bg.png) 0 -288px no-repeat;
+}
+/*.contact-us .twitter-img {
+	background-position: 0 -288px;
+}*/
+.contact-us .facebook-img {
+    background-position: -89px -288px;
+}
+.contact-us .email-img {
+    background-position: -178px -288px;
+}
+.contact-us .word{
+    float: left;
+    margin: 21px 0 0 30px;
+}
+.contact-us .word a {
+    color: #A3FF36;
+    font-size: 16px;
+}
+.contact-us .word a:hover {
+    text-decoration: underline;
+}
+.contact-us .word p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* FAQ */
+#faq-content {
+
+}
+#faq-content .answer {
+    margin-top: 20px;
+}
+.answer .serial-number {
+    position: relative;
+    float: left;
+    width: 67px;
+    height: 67px;
+    background: url(../img/circle.png) no-repeat;
+}
+.answer .serial-number span {
+    position: absolute;
+    top: 16px;
+    left: 25px;
+    color: #FFFFFF;
+    font-size: 30px;
+}
+.answer .answer-content {
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    max-width: 913px;
+    background: url(../img/left-arrow.png) 5px 5px no-repeat;
+}
+.answer .answer-content .answer-c {
+    margin-left:20px;
+    padding: 20px 30px;
+    border: 1px solid rgba(255,255,255,0.4);
+    *border: 1px solid #FFFFFF;
+    border: 1px solid #FFFFFF\9;
+    border-radius: 20px;
+}
+#faq-content .question {
+    margin-top: 20px;
+}
+.question .question-content {
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    max-width: 913px;
+    background: url(../img/right-arrow.png) right 5px no-repeat;
+}
+.question .question-content .question-c {
+    margin-right: 15px;
+    padding: 20px 30px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+}
+.small-secretary {
+    float: right;
+    width: 67px;
+    height: 67px;
+    background: url(../img/small-secretary.png) no-repeat;
+}
+.illustration {
+    margin: 20px 0;
+}
+
+#table {
+    width:100%;
+    margin:20px 0;
+    border-collapse:collapse;
+}
+#table th {
+    height:50px;
+    line-height:50px;
+    border:1px solid #FFFFFF;
+    color:#FFFFFF;
+}
+#table td {
+    height:50px;
+    padding:10px;
+    line-height:21px;
+    border:1px solid #FFFFFF;
+    color:#FFFFFF;
+}

@@ -1,0 +1,15 @@
+{
+    "app_configs": [
+        {
+            "app_type": "0",
+            "desc": [
+                "欢迎使用chatgame",
+                "welcome to user chatgame"
+            ],
+            "img_url": [
+                "http://api.chatgame.me"
+            ],
+            "click_url": "http://www.zhangying.mobi"
+        }
+    ]
+}

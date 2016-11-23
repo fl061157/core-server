@@ -1,0 +1,35 @@
+模型列表接口
+GET /api/user/avatarlist
+正确调用返回结果
+{
+    "avatars":[
+        {
+            "id":"1",
+            "version":"1.0",
+            "url":"http://1.zip"
+        },
+        {
+            "id":"2",
+            "version":"1.0",
+            "url":"http://2.zip"
+        },
+    ]
+}
+
+
+nginx中需要配置：
+注意nginx的运行用户不能为nobody，且所有目录权限为a+x
+        location ^~ /static/avatar/ {
+            alias /opt/faceshow/static_file/avatar/;
+        }
+        location ^~ /static/game/ {
+            alias /opt/faceshow/static_file/game/;
+            expires 30d;
+        }
+
+
+最终的url
+https://test.v5.cn/static/...
+https://api.chatgame.me/static/...
+等
+

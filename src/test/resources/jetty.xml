@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="webContext" class="org.eclipse.jetty.webapp.WebAppContext">
+           <constructor-arg index="0" value="src/main/webapp"/>
+           <constructor-arg index="1" value="/" />
+           <property name="descriptor" value="web.xml" />
+    </bean>
+
+    <bean id="defaultThreadPool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+        <property name="minThreads" value="10" />
+        <property name="maxThreads" value="200" />
+    </bean>
+
+    <bean id="JettyServer" class="org.eclipse.jetty.server.Server"
+          init-method="start" destroy-method="stop">
+        <constructor-arg name="pool" ref="defaultThreadPool"/>
+        <property name="connectors">
+            <list>
+                <bean id="connector" class="org.eclipse.jetty.server.ServerConnector">
+                    <constructor-arg name="server" ref="JettyServer" />
+                    <property name="port" value="8080" />
+                    <!--<property name="maxIdleTime" value="30000" />-->
+                    <!--<property name="lowResourcesConnections" value="5000" />-->
+                    <!--<property name="lowResourcesMaxIdleTime" value="5000" />-->
+                    <!--<property name="acceptors" value="4" />-->
+                    <!--<property name="statsOn" value="false" />-->
+                    <property name="acceptQueueSize" value="500" />
+                </bean>
+            </list>
+        </property>
+        <property name="handler" ref="webContext" />
+        
+    </bean>
+</beans>

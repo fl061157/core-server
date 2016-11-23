@@ -1,0 +1,26 @@
+1 单元测试
+  正常配置的spring配置文件加单元测试spring配置文件，后面的配置文件会覆盖掉前面的配置文件
+  1.1 cassandra使用内嵌式cassandra server
+  1.4 rabbitmq的mock对象为cn.v5.mock.RabbitmqTemplateMock
+  1.3 把Bean的属性采用mock对象
+      样例:
+
+      /**
+       * 引入待更改属性的bean,
+       * 使用InjectMocks注解表示该bean需要采用mock注入属性
+       */
+      @InjectMocks
+      @Autowired
+      private HealthCheckController healthCheckController;
+
+     /**
+      *
+      *
+      */
+      @Autowired
+      //@Mock
+      @Spy
+
+      Spy注解更改Mock的某些方法
+      Mock注解表示使用Mock的所有的方法
+  1.4 如果不使用外部部件的mock对象，则在

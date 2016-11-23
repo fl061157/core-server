@@ -1,0 +1,1 @@
+ALTER COLUMNFAMILY removed_friends add friend_id text ;

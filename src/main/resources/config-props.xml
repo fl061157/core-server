@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="conTypeMap" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <value>classpath:contentType.properties</value>
+        </property>
+        <property name="fileEncoding" value="utf-8"/>
+    </bean>
+
+    <bean id="appConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:common-props.properties</value>
+                <value>classpath:${spring.profiles.active}/config-file.properties</value>
+                <value>classpath:${spring.profiles.active}/config-mq.properties</value>
+                <value>classpath:${spring.profiles.active}/config-redis.properties</value>
+                <value>classpath:${spring.profiles.active}/config-sms.properties</value>
+                <value>classpath:${spring.profiles.active}/config-sys.properties</value>
+                <value>classpath:${spring.profiles.active}/config-oauth.properties</value>
+
+
+                <value>classpath:${spring.profiles.active}/config-zookeeper.properties</value>
+
+                <!-- Message 消息测试  -->
+                <!--<value>classpath:${spring.profiles.active}/config-message.properties</value>-->
+
+                <value>classpath:${spring.profiles.active}/config-ms-redis.properties</value>
+
+
+                <value>classpath:${spring.profiles.active}/config-db.properties</value>
+
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8"/>
+    </bean>
+
+</beans>

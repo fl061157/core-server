@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Chatgame--Chat by the game!</title>
+    <meta name="keywords" content="Chatgame,Video Call,Voice Call,Chatting,Games,Whatsapp,Wechat,Kik,Line,Kakao Talk,Instant Messaging,App Store,Google Android" />
+    <meta name="description" content="This is the official website of Chatgame, a fun and easy app to communicate with friends in." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="google-site-verification" content="MSHBxqux4QrHeE4rSORi5FzOVWAplyWRxhVXgsSCI9w" />
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/static/css/mobile-index.css" />
+</head>
+<body>
+    <div id="wrapper">
+        <div id="icon" class="clearfix">
+            <a href="https://twitter.com/RealChatGame" class="twitter-icon">
+                <img src="/static/images/mobile/twitter.png" />
+            </a>
+            <a href="https://www.facebook.com/officialChatGame?fref=ts" class="facebook-icon">
+                <img src="/static/images/mobile/facebook.png" />
+            </a>
+        </div>
+        <div id="logo">
+            <img src="/static/images/mobile/logo-beta.png" alt="logo" />
+        </div>
+        <div id="slider" class="swipe">
+            <div class="swipe-wrap">
+                <div class="wrap">
+                    <img src="/static/images/mobile/chatgame01.png" alt="chatgame01" />
+                </div>
+                <div class="wrap">
+                    <img src="/static/images/mobile/chatgame02.png" alt="chatgame02" />
+                </div>
+                <div class="wrap">
+                    <img src="/static/images/mobile/chatgame03.png" alt="chatgame03" />
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul id="position">
+                <li class="on"></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </nav>
+        <div id="download">
+            <a href="javscript:;" id="download-button">
+                <img src="/static/images/mobile/download-bg.png" alt="download" />
+            </a>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/js/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/swipe.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script>
+        //幻灯片
+        window.mySwipe = new Swipe(document.getElementById("slider"), {
+            startSlide: 0,//(默认:0) - Swipe开始的索引
+            speed: 400,//(默认:300) - 前进和后台的速度，单位毫秒.
+            auto: 0,//自动滑动 (time in milliseconds between slides)
+            continuous: true,//(默认:true) -是否可以循环播放（注：我设置为false好像也是循环的）
+            disableScroll: false,//(默认:false) - 停止触摸滑动
+            stopPropagation: false, //(默认:false) -停止事件传播
+            callback: function(pos) {
+                var i = bullets.length;
+                while (i--) {
+                    bullets[i].className = ' ';
+                }
+                bullets[pos].className = 'on';
+            }
+            //transitionEnd: function(index, elem) {}
+        });
+        var bullets = document.getElementById('position').getElementsByTagName('li');
+    </script>
+</body>
+</html>

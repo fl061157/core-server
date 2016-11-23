@@ -1,0 +1,130 @@
+/*
+* @description: 移动端首页
+* @author: czx
+* @update: czx (2014-05-06 18:00)
+*/
+
+@CHARSET "UTF-8";
+/* CSS Document */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100%;
+    width: 100%;
+    background-color: #FFF;
+    color: #FFF;
+    font-size: 12px;
+    font-family: "微软雅黑";
+}
+a img {
+    border: none;
+}
+img {
+    vertical-align: middle;
+    border: none;
+}
+.clear { 
+    clear: both;
+    font-size: 0; 
+    height: 0; 
+    overflow: hidden;
+}
+.clearfix { 
+    zoom: 1
+}
+.clearfix:after { 
+    content: '*'; 
+    height: 0; 
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+#guide{ 
+    display: none; 
+    width: 640px;
+}
+
+#wrapper {
+    width: 100%;    
+    background: url(../images/mobile/mobile-bg.png) no-repeat;
+    background-size: 100% 100%;
+}
+#icon {
+    padding: 18px 0 24px 0;
+}
+#icon .twitter-icon,
+#icon .facebook-icon {
+    display: block;
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-left: 30px;
+}
+#icon .twitter-icon img, 
+#icon .facebook-icon img {
+    width: 30px;
+    height: 30px;
+}
+#logo {
+    position: relative;
+    margin-bottom: 43px;
+}
+#logo img {
+    width: 100%;
+}
+#slider{
+    max-width: 640px;
+    margin: 0 auto;
+}
+.swipe {
+    overflow: hidden;
+    visibility: hidden;
+    position: relative;
+}
+.swipe-wrap {
+    overflow: hidden;
+    position: relative;
+}
+.swipe-wrap > .wrap {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.swipe-wrap > .wrap img { 
+    width: 100%;    
+}
+#wrapper nav {
+    position: relative;  
+}
+#position {
+   list-style: none;
+   text-align: center;
+   height: 10px;
+
+}
+#position li {  
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 16px;
+    background-color: #000000;
+    border-radius: 10px;
+    opacity: 0.5;
+}
+#position li.on {
+    background-color: #FFD146;
+    opacity: 1;
+}
+#position li:last-child {
+    margin-right: 0;
+}
+#download {
+    margin-top: 35px;
+    padding-bottom: 154px;
+}
+#download img {
+    width: 100%;
+}

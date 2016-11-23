@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <bean id="rpcSysLocalMessageConnectionManager" class="cn.v5.rpc.cluster.MRClusterConnectionManagerSpring">
+        <property name="group" value="${zk.group.sys}"/>
+        <property name="discoverURL" value="${zk.address}"/>
+        <property name="executor" ref="messageTaskExecutorAsync"/>
+        <property name="clusterType" value="rpcClient"/>
+    </bean>
+
+    <bean id="rpcSysLocalMessagePublisher" class="cn.v5.mr.MRPublisherFactoryBean">
+        <property name="connectionManager" ref="rpcSysLocalMessageConnectionManager"/>
+        <property name="priority" value="1" />
+    </bean>
+
+    <bean id="rpcSysLocalMessageRpcClient" class="cn.v5.rpc.RpcClient">
+        <constructor-arg ref="mMessagePack"/>
+        <constructor-arg ref="rpcSysLocalMessagePublisher"/>
+        <constructor-arg ref="messageTaskExecutorAsync"/>
+        <constructor-arg value="10"/>
+    </bean>
+
+    <bean id="rpcSysMessageService" class="cn.v5.rpc.MRMessagePackInvokerProxyFactoryBean">
+        <property name="serviceUrl" value="rpc/sysmsg"/>
+        <property name="serviceInterface" value="com.handwin.api.sysmsg.service.SysMessageService"/>
+        <property name="rpcClient" ref="rpcSysLocalMessageRpcClient"/>
+    </bean>
+
+    <bean id="rpcSysMessageServiceAsync" class="cn.v5.rpc.MRMessagePackInvokerProxyFactoryBean">
+        <property name="serviceUrl" value="rpc/sysmsg"/>
+        <property name="serviceInterface" value="com.handwin.api.sysmsg.service.SysMessageServiceAsync"/>
+        <property name="rpcClient" ref="rpcSysLocalMessageRpcClient"/>
+    </bean>
+
+
+</beans>

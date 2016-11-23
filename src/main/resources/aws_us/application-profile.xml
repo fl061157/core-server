@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="awsClientConfig" class="com.amazonaws.ClientConfiguration">
+        <property name="maxConnections" value="${aws.s3.maxConnections}"/>
+        <property name="connectionTTL" value="${aws.s3.connectionTTL}"/>
+        <property name="socketTimeout" value="${aws.s3.socketTimeout}"/>
+        <property name="connectionTimeout" value="${aws.s3.connectionTimeout}"/>
+        <property name="useTcpKeepAlive" value="${aws.s3.tcpKeepAlive}"/>
+    </bean>
+    <bean id="fileStore" class="cn.v5.file.amazon.AmazomS3FileStoreImpl">
+        <property name="configuration" ref="awsClientConfig"/>
+        <property name="conTypeMap" ref="conTypeMap"/>
+        <property name="fileStoreMetric" ref="fileStoreMetric" />
+    </bean>
+
+    <bean id="manager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.entity"/>
+        <property name="contactPoints" value="10.0.10.31,10.0.50.15,10.0.30.62"/>
+        <property name="port" value="9042"/>
+        <property name="keyspaceName" value="faceshow"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="LOCAL_QUORUM"/>
+        <property name="consistencyLevelWriteDefault" value="LOCAL_QUORUM"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression">
+            <value>LZ4</value>
+        </property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.DCAwareRoundRobinPolicy">
+                        <constructor-arg value="us-west-2"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="localManager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.localentity"/>
+        <property name="contactPoints" value="10.0.10.31,10.0.50.15,10.0.30.62"/>
+        <property name="port" value="9042"/>
+        <property name="keyspaceName" value="faceshow"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="LOCAL_QUORUM"/>
+        <property name="consistencyLevelWriteDefault" value="LOCAL_QUORUM"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression"><value>LZ4</value></property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.DCAwareRoundRobinPolicy">
+                        <constructor-arg value="us-west-2"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="opManager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.openplatform.entity,cn.v5.entity"/>
+        <property name="contactPoints" value="10.0.10.31,10.0.50.15,10.0.30.62"/>
+        <property name="port" value="9042"/>
+        <property name="keyspaceName" value="op_manager_us"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="LOCAL_QUORUM"/>
+        <property name="consistencyLevelWriteDefault" value="LOCAL_QUORUM"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression"><value>LZ4</value></property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.DCAwareRoundRobinPolicy">
+                        <constructor-arg value="us-west-2"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="oauthManager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.entity.oauth"/>
+        <property name="contactPoints" value="10.0.10.31,10.0.50.15,10.0.30.62"/>
+        <property name="port" value="9042"/>
+        <property name="keyspaceName" value="oauth_us"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="LOCAL_QUORUM"/>
+        <property name="consistencyLevelWriteDefault" value="LOCAL_QUORUM"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression"><value>LZ4</value></property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.DCAwareRoundRobinPolicy">
+                        <constructor-arg value="us-west-2"/>
+                    </bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+</beans>

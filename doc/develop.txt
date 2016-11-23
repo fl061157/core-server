@@ -1,0 +1,53 @@
+1  HttpServletRequest 不能跨线程传递
+   spring框架会修改HttpServletRequest
+2  添加好友时区分好友的来源
+   CG，本地通讯录、微博等。默认是CG
+
+3 可能认识的人增加 总数字段
+
+4 获取第三方可能认识的人
+  http://192.168.1.182:8080/pages/viewpage.action?pageId=2261273#ChatGameAPI文档-获取第三方app可能认识的人
+  4.1 增加表 cg_third_app_users
+  复合主键(user_id,type)
+  user_id,type,third_app_user_id
+
+  4.2 third_app_users_cg
+  type,third_app_user_id,user_id,access_token
+
+
+5  获取facebook好友
+   5.1 中国区的部件，访问日本机房，反向代理访问
+   http://52.69.39.196:8080/facebook/v2.4/me/friends
+
+   nignx配置:
+         location ^~ /facebook {
+                 proxy_set_header Host graph.facebook.com;
+                 proxy_set_header X-Real-IP $remote_addr;
+                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                 proxy_pass https://graph.facebook.com/;
+         }
+   5.2 非中国区机房直接访问
+   http://graph.facebook.com/v2.4/me/friends
+
+
+6 android通过网页打开应用的页面
+  短信的内容如：
+
+  你有来自 {0} 的未接电话，请在本地应用“露脸”内查看 http://test.v5.cn/launch.html
+
+  http://test.v5.cn/launch.html的内容如下:
+  <!DOCTYPE html>
+  <html>
+      <head>
+      </head>
+      <body>
+         <a href="cgtp://open.main.activity">open cg</a>
+           <script type="text/javascript">
+               document.location.href="cgtp://open.main.activity";
+          </script>
+      </body>
+  </html>
+
+
+7 支持新协议 需要在mq上建立queue
+V5PROTOCOL_QUEUE 持久化

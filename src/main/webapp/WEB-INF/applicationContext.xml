@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+>
+    <import resource="application-metrics.xml"/>
+    <import resource="classpath:config-props.xml"/>
+    <import resource="classpath:${spring.profiles.active}/application-profile.xml"/>
+
+    <import resource="classpath:xmls/config-mr-base.xml"/>
+    <import resource="classpath:xmls/config-mr-message-client.xml"/>
+    <import resource="classpath:xmls/config-rpc-sysmsg.xml"/>
+    <import resource="classpath:xmls/config-mr-trade.xml"/>
+
+    <context:property-placeholder properties-ref="appConfig"/>
+
+    <import resource="applicationContext-security.xml"/>
+
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+
+    <bean id="messageSource1"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:i18n_1/messages"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+
+    <bean id="exceptionResolver" class="cn.v5.web.controller.ServerExceptionResolver">
+    </bean>
+
+    <!-- Scans within the base package of the application for @Components to configure as beans -->
+
+
+    <context:annotation-config/>
+    <bean class="cn.v5.trade.database.DatabaseConfiguration"/>
+    <context:component-scan base-package="cn.v5"/>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters" ref="defaultMessageConverters"/>
+    </bean>
+
+    <bean id="jsonMessageConverter" class="cn.v5.json.CustomJacksonMessageConverter"/>
+
+    <mvc:resources location="/" mapping="/index.html"/>
+
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+                <value>*/*</value>
+            </list>
+        </property>
+        <property name="writeAcceptCharset" value="false"/>
+    </bean>
+    <bean id="objectMapperFactoryBean" class="cn.v5.json.ObjectMapperFactoryBean"/>
+    <bean id="defaultMessageConverters" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="jsonMessageConverter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <bean class="cn.v5.validation.interceptor.ValidationSourceAdvisor">
+        <property name="exceptionTranslator">
+            <bean class="cn.v5.validation.interceptor.ServerExceptionTranslator"/>
+        </property>
+    </bean>
+
+    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <beans:property name="prefix" value="/WEB-INF/views/"/>
+        <beans:property name="suffix" value=".jsp"/>
+    </beans:bean>
+
+    <mvc:annotation-driven>
+        <mvc:async-support task-executor="taskExecutor"
+                           default-timeout="120000"></mvc:async-support>
+    </mvc:annotation-driven>
+    <mvc:default-servlet-handler/>
+    <mvc:interceptors>
+        <bean class="cn.v5.interceptor.PreCleanInterceptor"/>
+
+        <bean class="cn.v5.interceptor.LogInterceptor">
+            <property name="excludes"
+                      value="/*.html,/static/**"/>
+        </bean>
+        <bean class="cn.v5.interceptor.SecInterceptor">
+            <property name="excludes"
+                      value="/client/version,/client/latest_version,/qr/**,/ivt/**,/views/*,/v/*,/*.html,/m/*.html,/sms-server/**,
+                      /api/system/**,/static/**,/api/user/bind/device,/favicon.ico,/api/phone/authcode,/api/avatar/**,/api-docs,/api/test,
+                      /api/file/download/**,/api/user/exist,/api/user/register,/api/user/country_code,/api/client/update_latest_version,
+                      /api/cpu,/api/user/game_login,/api/user/oauth_login,/api/user/oauth2_login,/api/user/oauth/login,/api/client/latest_version,
+                      /api/video/download/**,/api/video/play/**,/api/health_check/**,/api/file/feedback/**,/api/file/avatar/**,/api/user/auth,/api/user/auth/*,
+                      /api/user/auth/**,/api/auth/*,/api/auth/**,/api/traversing/**,/api/game/time,/open/admin/**,/oauth/token,/api/trade/notify,/api/apps"/>
+            <property name="appKeySecretAuth"
+                      value="/open/api/user/auth,/open/api/session/auth,/open/api/user/update,/open/api/create_if_absent,/open/api/app_id"/>
+
+        </bean>
+
+        <bean class="cn.v5.metric.ReqAnalyzeInterceptor">
+            <property name="metricRegistry" ref="metrics"/>
+        </bean>
+    </mvc:interceptors>
+
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxTotal}"/>
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+        <property name="minIdle" value="${redis.pool.minIdle}"/>
+        <property name="testWhileIdle" value="${redis.pool.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+        <property name="testOnCreate" value="${redis.pool.testOnCreate}"/>
+        <property name="numTestsPerEvictionRun" value="${redis.pool.numTestsPerEvictionRun}"/>
+        <property name="softMinEvictableIdleTimeMillis"
+                  value="${redis.pool.softMinEvictableIdleTimeMillis}"/>
+        <property name="minEvictableIdleTimeMillis"
+                  value="${redis.pool.minEvictableIdleTimeMillis}"/>
+        <property name="timeBetweenEvictionRunsMillis"
+                  value="${redis.pool.timeBetweenEvictionRunsMillis}"/>
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}"/>
+        <property name="blockWhenExhausted" value="${redis.pool.blockWhenExhausted}"/>
+    </bean>
+
+    <bean id="binaryJedisCluster" class="cn.v5.cache.BinaryJedisCluster">
+        <constructor-arg index="0" type="java.lang.String">
+            <value>${redis.hosts}</value>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <value>1</value>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <value>5</value>
+        </constructor-arg>
+        <constructor-arg index="3" type="redis.clients.jedis.JedisPoolConfig">
+            <ref bean="jedisPoolConfig"></ref>
+        </constructor-arg>
+    </bean>
+
+    <rabbit:connection-factory id="connectionFactory" addresses="${mq.host}"
+                               username="${mq.userName}" password="${mq.password}"/>
+    <rabbit:admin connection-factory="connectionFactory"/>
+    <rabbit:queue name="${mq.system.msg.queue}" id="system_msg_queue" durable="true"
+                  auto-delete="false" exclusive="false"/>
+    <rabbit:queue name="${push.msg.queue}" id="push_msg_queue" durable="true" auto-delete="false"
+                  exclusive="false"/>
+    <rabbit:queue name="${mq.game.match.msg.queue}" id="game_match_msg_queue" durable="false"
+                  auto-delete="false" exclusive="false"/>
+
+    <rabbit:queue name="${mq.system.v5protocol.queue}" id="v5protocol_msg_queue" durable="true"
+                  auto-delete="false" exclusive="false"/>
+
+    <!--<rabbit:template id="amqpTemplate" connection-factory="connectionFactory"/>-->
+    <bean id="amqpTemplate" class="cn.v5.metric.RabbitTemplateMetric">
+        <constructor-arg name="connectionFactory" ref="connectionFactory"/>
+        <property name="metricRegistry" ref="metrics"/>
+    </bean>
+
+    <bean id="eventMessageConsumer" class="cn.v5.mq.EventMessageConsumer"></bean>
+
+    <rabbit:topic-exchange name="${mq.sub.attach.exchange}" id="mq_sub_attach_exchange" auto-delete="false"
+                           durable="true" auto-declare="true">
+        <rabbit:bindings>
+            <rabbit:binding pattern="${mq.sub.attach.rk.pattern}" queue="ATTACH_CORESERVER"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+
+    <rabbit:queue name="ATTACH_CORESERVER" id="sub_attach_msg_queue" durable="true"
+                  auto-delete="false" exclusive="false"/>
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="none" prefetch="10">
+        <rabbit:listener queues="sub_attach_msg_queue" ref="eventMessageConsumer" method="onMessage"/>
+    </rabbit:listener-container>
+
+
+    <rabbit:fanout-exchange name="${mq.http.push.exchange}" id="mq_http_push_exchange" auto-delete="false"
+                            durable="true" auto-declare="true">
+    </rabbit:fanout-exchange>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+    <task:executor id="taskExecutor" pool-size="8-20" queue-capacity="10000"
+                   rejection-policy="DISCARD_OLDEST"/>
+    <task:scheduler id="taskScheduler" pool-size="8"/>
+
+    <bean class="cn.v5.InitBean"/>
+
+    <util:map id="iPhone4" map-class="java.util.HashMap" key-type="java.lang.Integer"
+              value-type="java.lang.Integer">
+        <entry key="0" value="0"/>
+        <entry key="1200" value="1"/>
+    </util:map>
+
+    <util:map id="iPhone4s" map-class="java.util.HashMap" key-type="java.lang.Integer"
+              value-type="java.lang.Integer">
+        <entry key="0" value="1"/>
+        <entry key="1200" value="2"/>
+    </util:map>
+
+    <util:map id="iPhone5" map-class="java.util.HashMap" key-type="java.lang.Integer"
+              value-type="java.lang.Integer">
+        <entry key="0" value="3"/>
+        <entry key="1200" value="4"/>
+    </util:map>
+
+    <bean id="cpuService" class="cn.v5.service.CpuService">
+        <property name="cpuMaps">
+            <util:map>
+                <entry key="0" value-ref="iPhone4"/>
+                <entry key="2" value-ref="iPhone4s"/>
+                <entry key="4" value-ref="iPhone5"/>
+            </util:map>
+        </property>
+    </bean>
+</beans>

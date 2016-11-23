@@ -1,0 +1,32 @@
+#国家号码格式校验
+enable: yes
+config:
+- country: 0964
+  #以7开头 10位数字
+  reg: ^7\d{9}
+  enable: yes
+
+- country: 0020
+  #以10、11、12开头 10位
+  reg: ^1[0,1,2]\d{8}
+  enable: yes
+
+- country: 0095
+  #以9开头 8-11位
+  reg: ^9\d{7,10}
+  enable: yes
+
+- country: 0212
+  #以6开头 9位
+  reg: ^6\d{8}
+  enable: yes
+
+- country: 0213
+  #手机号码9-10位，5、6、7 、8 、9开头
+  reg: ^[5,6,7,8,9]\d{8,9}
+  enable: yes
+
+- country: 0066
+  #以6、8、9开头 9位
+  reg: ^[6,8,9]\d{8}
+  enable: yes

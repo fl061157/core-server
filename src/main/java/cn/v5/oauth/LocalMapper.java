@@ -1,0 +1,207 @@
+package cn.v5.oauth;
+
+import org.apache.commons.collections.map.HashedMap;
+
+import java.util.Map;
+
+/**
+ * Created by fangliang on 16/5/10.
+ */
+public class LocalMapper {
+
+    final static Map<String, String> LOCAL_MAPPER = new HashedMap();
+
+    final static String DEFAULT_COUNTRY_CODE = "0001";
+
+    static {
+        LOCAL_MAPPER.put("lb", "0961");
+        LOCAL_MAPPER.put("la", "0856");
+        LOCAL_MAPPER.put("kz", "0327");
+        LOCAL_MAPPER.put("kw", "0965");
+        LOCAL_MAPPER.put("kr", "0082");
+        LOCAL_MAPPER.put("kp", "0850");
+        LOCAL_MAPPER.put("kh", "0855");
+        LOCAL_MAPPER.put("kg", "0331");
+        LOCAL_MAPPER.put("ke", "0254");
+        LOCAL_MAPPER.put("jp", "0081");
+        LOCAL_MAPPER.put("jo", "0962");
+        LOCAL_MAPPER.put("jm", "1876");
+        LOCAL_MAPPER.put("vn", "0084");
+        LOCAL_MAPPER.put("ve", "0058");
+        LOCAL_MAPPER.put("vc", "1784");
+        LOCAL_MAPPER.put("it", "0039");
+        LOCAL_MAPPER.put("is", "0354");
+        LOCAL_MAPPER.put("ir", "0098");
+        LOCAL_MAPPER.put("iq", "0964");
+        LOCAL_MAPPER.put("uz", "0233");
+        LOCAL_MAPPER.put("uy", "0598");
+        LOCAL_MAPPER.put("in", "0091");
+        LOCAL_MAPPER.put("il", "0972");
+        LOCAL_MAPPER.put("us", "0001");
+        LOCAL_MAPPER.put("ie", "0353");
+        LOCAL_MAPPER.put("id", "0062");
+        LOCAL_MAPPER.put("ug", "0256");
+        LOCAL_MAPPER.put("ua", "0380");
+        LOCAL_MAPPER.put("hu", "0036");
+        LOCAL_MAPPER.put("ht", "0509");
+        LOCAL_MAPPER.put("tz", "0255");
+        LOCAL_MAPPER.put("hn", "0504");
+        LOCAL_MAPPER.put("tw", "0886");
+        LOCAL_MAPPER.put("hk", "0852");
+        LOCAL_MAPPER.put("tt", "1809");
+        LOCAL_MAPPER.put("tr", "0090");
+        LOCAL_MAPPER.put("to", "0676");
+        LOCAL_MAPPER.put("tn", "0216");
+        LOCAL_MAPPER.put("tm", "0993");
+        LOCAL_MAPPER.put("tj", "0992");
+        LOCAL_MAPPER.put("th", "0066");
+        LOCAL_MAPPER.put("tg", "0228");
+        LOCAL_MAPPER.put("gy", "0592");
+        LOCAL_MAPPER.put("td", "0235");
+        LOCAL_MAPPER.put("gu", "1671");
+        LOCAL_MAPPER.put("gt", "0502");
+        LOCAL_MAPPER.put("gr", "0030");
+        LOCAL_MAPPER.put("sz", "0268");
+        LOCAL_MAPPER.put("sy", "0963");
+        LOCAL_MAPPER.put("gn", "0224");
+        LOCAL_MAPPER.put("gm", "0220");
+        LOCAL_MAPPER.put("sv", "0503");
+        LOCAL_MAPPER.put("gi", "0350");
+        LOCAL_MAPPER.put("st", "0239");
+        LOCAL_MAPPER.put("gh", "0233");
+        LOCAL_MAPPER.put("sr", "0597");
+        LOCAL_MAPPER.put("gf", "0594");
+        LOCAL_MAPPER.put("ge", "0995");
+        LOCAL_MAPPER.put("so", "0252");
+        LOCAL_MAPPER.put("gd", "1809");
+        LOCAL_MAPPER.put("sn", "0221");
+        LOCAL_MAPPER.put("gb", "0044");
+        LOCAL_MAPPER.put("sm", "0378");
+        LOCAL_MAPPER.put("sl", "0232");
+        LOCAL_MAPPER.put("ga", "0241");
+        LOCAL_MAPPER.put("sk", "0421");
+        LOCAL_MAPPER.put("si", "0386");
+        LOCAL_MAPPER.put("sg", "0065");
+        LOCAL_MAPPER.put("se", "0046");
+        LOCAL_MAPPER.put("sd", "0249");
+        LOCAL_MAPPER.put("sc", "0248");
+        LOCAL_MAPPER.put("sb", "0677");
+        LOCAL_MAPPER.put("sa", "0966");
+        LOCAL_MAPPER.put("fr", "0033");
+        LOCAL_MAPPER.put("fj", "0679");
+        LOCAL_MAPPER.put("ru", "0007");
+        LOCAL_MAPPER.put("fi", "0358");
+        LOCAL_MAPPER.put("ro", "0040");
+        LOCAL_MAPPER.put("et", "0251");
+        LOCAL_MAPPER.put("es", "0034");
+        LOCAL_MAPPER.put("eg", "0020");
+        LOCAL_MAPPER.put("ee", "0372");
+        LOCAL_MAPPER.put("ec", "0593");
+        LOCAL_MAPPER.put("dz", "0213");
+        LOCAL_MAPPER.put("qa", "0974");
+        LOCAL_MAPPER.put("do", "1890");
+        LOCAL_MAPPER.put("py", "0595");
+        LOCAL_MAPPER.put("dk", "0045");
+        LOCAL_MAPPER.put("dj", "0253");
+        LOCAL_MAPPER.put("pt", "0351");
+        LOCAL_MAPPER.put("pr", "1787");
+        LOCAL_MAPPER.put("de", "0049");
+        LOCAL_MAPPER.put("pl", "0048");
+        LOCAL_MAPPER.put("pk", "0092");
+        LOCAL_MAPPER.put("ph", "0063");
+        LOCAL_MAPPER.put("pg", "0675");
+        LOCAL_MAPPER.put("cz", "0420");
+        LOCAL_MAPPER.put("pf", "0689");
+        LOCAL_MAPPER.put("cy", "0357");
+        LOCAL_MAPPER.put("pe", "0051");
+        LOCAL_MAPPER.put("cu", "0053");
+        LOCAL_MAPPER.put("pa", "0507");
+        LOCAL_MAPPER.put("cr", "0506");
+        LOCAL_MAPPER.put("co", "0057");
+        LOCAL_MAPPER.put("cn", "0086");
+        LOCAL_MAPPER.put("cm", "0237");
+        LOCAL_MAPPER.put("cl", "0056");
+        LOCAL_MAPPER.put("ck", "0682");
+        LOCAL_MAPPER.put("ch", "0041");
+        LOCAL_MAPPER.put("cg", "0242");
+        LOCAL_MAPPER.put("cf", "0236");
+        LOCAL_MAPPER.put("om", "0968");
+        LOCAL_MAPPER.put("ca", "0001");
+        LOCAL_MAPPER.put("bz", "0501");
+        LOCAL_MAPPER.put("by", "0375");
+        LOCAL_MAPPER.put("bw", "0267");
+        LOCAL_MAPPER.put("bs", "1242");
+        LOCAL_MAPPER.put("br", "0055");
+        LOCAL_MAPPER.put("bo", "0591");
+        LOCAL_MAPPER.put("nz", "0064");
+        LOCAL_MAPPER.put("bn", "0673");
+        LOCAL_MAPPER.put("bm", "1441");
+        LOCAL_MAPPER.put("bj", "0229");
+        LOCAL_MAPPER.put("bi", "0257");
+        LOCAL_MAPPER.put("bh", "0973");
+        LOCAL_MAPPER.put("bg", "0359");
+        LOCAL_MAPPER.put("nr", "0674");
+        LOCAL_MAPPER.put("bf", "0226");
+        LOCAL_MAPPER.put("be", "0032");
+        LOCAL_MAPPER.put("np", "0977");
+        LOCAL_MAPPER.put("bd", "0880");
+        LOCAL_MAPPER.put("no", "0047");
+        LOCAL_MAPPER.put("bb", "1246");
+        LOCAL_MAPPER.put("zw", "0263");
+        LOCAL_MAPPER.put("nl", "0031");
+        LOCAL_MAPPER.put("ni", "0505");
+        LOCAL_MAPPER.put("zr", "0243");
+        LOCAL_MAPPER.put("ng", "0234");
+        LOCAL_MAPPER.put("az", "0994");
+        LOCAL_MAPPER.put("ne", "0227");
+        LOCAL_MAPPER.put("zm", "0260");
+        LOCAL_MAPPER.put("au", "0061");
+        LOCAL_MAPPER.put("na", "0264");
+        LOCAL_MAPPER.put("at", "0043");
+        LOCAL_MAPPER.put("ar", "0054");
+        LOCAL_MAPPER.put("ao", "0244");
+        LOCAL_MAPPER.put("mz", "0258");
+        LOCAL_MAPPER.put("my", "0060");
+        LOCAL_MAPPER.put("am", "0374");
+        LOCAL_MAPPER.put("mx", "0052");
+        LOCAL_MAPPER.put("al", "0355");
+        LOCAL_MAPPER.put("mw", "0265");
+        LOCAL_MAPPER.put("mv", "0960");
+        LOCAL_MAPPER.put("za", "0027");
+        LOCAL_MAPPER.put("mu", "0230");
+        LOCAL_MAPPER.put("ai", "1264");
+        LOCAL_MAPPER.put("mt", "0356");
+        LOCAL_MAPPER.put("ms", "1664");
+        LOCAL_MAPPER.put("ag", "1268");
+        LOCAL_MAPPER.put("af", "0093");
+        LOCAL_MAPPER.put("ae", "0971");
+        LOCAL_MAPPER.put("ad", "0376");
+        LOCAL_MAPPER.put("mo", "0853");
+        LOCAL_MAPPER.put("mn", "0976");
+        LOCAL_MAPPER.put("mm", "0095");
+        LOCAL_MAPPER.put("ml", "0223");
+        LOCAL_MAPPER.put("yu", "0381");
+        LOCAL_MAPPER.put("mg", "0261");
+        LOCAL_MAPPER.put("md", "0373");
+        LOCAL_MAPPER.put("mc", "0377");
+        LOCAL_MAPPER.put("ma", "0212");
+        LOCAL_MAPPER.put("ye", "0967");
+        LOCAL_MAPPER.put("ly", "0218");
+        LOCAL_MAPPER.put("lv", "0371");
+        LOCAL_MAPPER.put("lu", "0352");
+        LOCAL_MAPPER.put("lt", "0370");
+        LOCAL_MAPPER.put("ls", "0266");
+        LOCAL_MAPPER.put("lr", "0231");
+        LOCAL_MAPPER.put("lk", "0094");
+        LOCAL_MAPPER.put("li", "0423");
+        LOCAL_MAPPER.put("lc", "1758");
+    }
+
+
+    public static String getRegionCode(String locale) {
+        String code = LOCAL_MAPPER.get(locale);
+        return code != null ? code : DEFAULT_COUNTRY_CODE;
+    }
+
+
+}

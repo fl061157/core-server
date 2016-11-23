@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="fileStore" class="cn.v5.file.aliyun.AliyunOSSFileStoreImpl"/>
+    <bean id="manager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.entity"/>
+        <property name="contactPoints" value="${cassandra.host}"/>
+        <property name="port" value="${cassandra.port}"/>
+        <property name="keyspaceName" value="${cassandra.keyspace}"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="LOCAL_QUORUM"/>
+        <property name="consistencyLevelWriteDefault" value="LOCAL_QUORUM"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression">
+            <value>LZ4</value>
+        </property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.RoundRobinPolicy"></bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="localManager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.localentity"/>
+        <property name="contactPoints" value="${cassandra.host}"/>
+        <property name="port" value="${cassandra.port}"/>
+        <property name="keyspaceName" value="${cassandra.keyspace.local}"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="LOCAL_QUORUM"/>
+        <property name="consistencyLevelWriteDefault" value="LOCAL_QUORUM"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression">
+            <value>LZ4</value>
+        </property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.RoundRobinPolicy"></bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="opManager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.openplatform.entity,cn.v5.entity"/>
+        <property name="contactPoints" value="${cassandra.host}"/>
+        <property name="port" value="${cassandra.port}"/>
+        <property name="keyspaceName" value="${cassandra.keyspace.op.local}"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="ONE"/>
+        <property name="consistencyLevelWriteDefault" value="ONE"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression">
+            <value>LZ4</value>
+        </property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.RoundRobinPolicy"></bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="oauthManager"
+          class="cn.v5.cassandra.PersistenceManagerFactoryBean">
+        <property name="entityPackages" value="cn.v5.entity.oauth"/>
+        <property name="contactPoints" value="${cassandra.host}"/>
+        <property name="port" value="${cassandra.port}"/>
+        <property name="keyspaceName" value="oauth"/>
+        <property name="objectMapper" ref="objectMapperFactoryBean"/>
+        <property name="consistencyLevelReadDefault" value="ONE"/>
+        <property name="consistencyLevelWriteDefault" value="ONE"/>
+        <property name="forceTableCreation" value="true"/>
+        <property name="compression">
+            <value>LZ4</value>
+        </property>
+        <property name="loadBalancingPolicy">
+            <bean class="com.datastax.driver.core.policies.TokenAwarePolicy">
+                <constructor-arg>
+                    <bean class="com.datastax.driver.core.policies.RoundRobinPolicy"></bean>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+</beans>
